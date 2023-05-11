@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Feed.css";
 import CreateIcon from "@mui/icons-material/Create";
 import ImageIcon from "@mui/icons-material/Image";
@@ -6,8 +6,30 @@ import InputOption from "./InputOption";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import ArticleIcon from "@mui/icons-material/Article";
+import Post from "./Post";
+// import { db } from "./firebase";
+import { getFirestore, collection, onSnapshot } from "firebase/firestore";
 
 function Feed() {
+    const db = getFirestore();
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        const postsCollection = collection(db, "posts");
+        onSnapshot(postsCollection, (snapshot) =>
+            setPosts(
+                snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    data: doc.data(),
+                }))
+            )
+        );
+    }, []);
+
+    const sendPost = (e) => {
+        e.preventDefault();
+    };
+
     return (
         <div className="feed">
             <div className="feed__inputContainer">
@@ -15,7 +37,9 @@ function Feed() {
                     <CreateIcon />
                     <form>
                         <input type="text" />
-                        <button type="submit">Envoyer</button>
+                        <button onClick={sendPost} type="submit">
+                            Envoyer
+                        </button>
                     </form>
                 </div>
                 <div className="feed__inputOptions">
@@ -43,6 +67,14 @@ function Feed() {
             </div>
 
             {/* Posts */}
+            {posts.map((posts) => (
+                <Post />
+            ))}
+            <Post
+                name="Nicolas LOUIS"
+                description="C'est un test"
+                message="Le contenu est ok"
+            />
         </div>
     );
 }
