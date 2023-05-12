@@ -7,9 +7,8 @@ import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import ArticleIcon from "@mui/icons-material/Article";
 import Post from "./Post";
-import db from "./firebase";
+import { db } from "./firebase";
 import {
-    getFirestore,
     collection,
     onSnapshot,
     serverTimestamp,
@@ -17,9 +16,6 @@ import {
 } from "firebase/firestore";
 
 function Feed() {
-    const db = getFirestore();
-    // addDoc(collection(db, "posts"), {});
-
     const [input, setInput] = useState("");
     const [posts, setPosts] = useState([]);
 
@@ -40,7 +36,7 @@ function Feed() {
 
         addDoc(collection(db, "posts"), {
             name: "Nico",
-            description: "c'estun test",
+            description: "c'est un test",
             message: input,
             photoUrl: "",
             timestamp: serverTimestamp(),
