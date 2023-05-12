@@ -13,6 +13,8 @@ import {
     onSnapshot,
     serverTimestamp,
     addDoc,
+    query,
+    orderBy,
 } from "firebase/firestore";
 
 function Feed() {
@@ -21,13 +23,15 @@ function Feed() {
 
     useEffect(() => {
         const postsCollection = collection(db, "posts");
-        onSnapshot(postsCollection, (snapshot) =>
-            setPosts(
-                snapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    data: doc.data(),
-                }))
-            )
+        onSnapshot(
+            query(postsCollection, orderBy("timestamp", "desc")),
+            (snapshot) =>
+                setPosts(
+                    snapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        data: doc.data(),
+                    }))
+                )
         );
     }, []);
 
@@ -41,6 +45,8 @@ function Feed() {
             photoUrl: "",
             timestamp: serverTimestamp(),
         });
+
+        setInput("");
     };
 
     return (
