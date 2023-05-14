@@ -8,7 +8,6 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import SmsIcon from "@mui/icons-material/Sms";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import me from "./assets/me.jpg";
 import { useDispatch } from "react-redux";
 import { logout } from "./features/userSlice";
 import { auth } from "./firebase";
@@ -39,7 +38,11 @@ function Header() {
                 />
                 <HeaderOption Icon={SmsIcon} title="Messagerie" />
                 <HeaderOption Icon={NotificationsIcon} title="Notifications" />
-                <HeaderOption avatar={me} title="Vous" onClick={logoutOfApp} />
+                <HeaderOption
+                    avatar={true}
+                    title="Vous"
+                    onClick={logoutOfApp}
+                />
             </div>
         </div>
     );
