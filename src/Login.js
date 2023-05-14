@@ -38,7 +38,7 @@ function Login() {
                     );
                 });
             })
-            .catch((error) => alert(error.message));
+            .catch((error) => alert(error));
     };
     return (
         <div className="login">
