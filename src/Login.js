@@ -1,22 +1,80 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
 import linkedin from "./assets/linkedin.svg";
+import { auth } from "./firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { login } from "./features/userSlice";
 
 function Login() {
-    const register = () => {};
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
+    const [profilePic, setProfilePic] = useState("");
+    const dispatch = useDispatch();
+
+    const loginToApp = (e) => {
+        e.preventDefault();
+    };
+    const register = () => {
+        if (!name) {
+            return alert("Merci d'indiquer le nom");
+        }
+
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userAuth) => {
+                const user = userAuth.user;
+                updateProfile(user, {
+                    displayName: name,
+                    photoURL: profilePic,
+                }).then(() => {
+                    dispatch(
+                        login({
+                            email: user.email,
+                            uid: user.uid,
+                            displayName: name,
+                            photoUrl: profilePic,
+                        })
+                    );
+                });
+            })
+            .catch((error) => alert(error.message));
+    };
     return (
         <div className="login">
             <img src={linkedin} alt="Linkedin logo" />
             <form>
-                <input placeholder="Nom complet" type="text" />
-                <input placeholder="Photo de profil" type="text" />
-                <input placeholder="Email" type="email" />
-                <input placeholder="Mot de passe" type="password" />
-                <button>Se connecter</button>
+                <input
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Nom complet"
+                    type="text"
+                />
+                <input
+                    value={profilePic}
+                    onChange={(e) => setProfilePic(e.target.value)}
+                    placeholder="Photo de profil"
+                    type="text"
+                />
+                <input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                    type="email"
+                />
+                <input
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Mot de passe"
+                    type="password"
+                />
+                <button type="submit" onClick={loginToApp}>
+                    Se connecter
+                </button>
             </form>
 
             <p>
-                Nouveau sur Linkedin?
+                Nouveau sur Linkedin?{" "}
                 <span className="login__register" onClick={register}>
                     S'inscrire
                 </span>
