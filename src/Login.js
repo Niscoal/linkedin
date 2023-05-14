@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import "./Login.css";
 import linkedin from "./assets/linkedin.svg";
 import { auth } from "./firebase";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    updateProfile,
+} from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { login } from "./features/userSlice";
 
@@ -15,6 +19,19 @@ function Login() {
 
     const loginToApp = (e) => {
         e.preventDefault();
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userAuth) => {
+                dispatch(
+                    login({
+                        email: userAuth.user.email,
+                        uid: userAuth.user.uid,
+                        displayName: userAuth.user.displayName,
+                        profileUrl: userAuth.user.photoURL,
+                    })
+                );
+            })
+            .catch((error) => alert(error));
     };
     const register = () => {
         if (!name) {
