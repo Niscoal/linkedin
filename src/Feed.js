@@ -16,8 +16,11 @@ import {
     query,
     orderBy,
 } from "firebase/firestore";
+import { useSelector } from "react-redux";
+import { selectUser } from "./features/userSlice";
 
 function Feed() {
+    const user = useSelector(selectUser);
     const [input, setInput] = useState("");
     const [posts, setPosts] = useState([]);
 
@@ -39,10 +42,10 @@ function Feed() {
         e.preventDefault();
 
         addDoc(collection(db, "posts"), {
-            name: "Nico",
-            description: "c'est un test",
+            name: user.displayName,
+            description: user.email,
             message: input,
-            photoUrl: "",
+            photoUrl: user.photoUrl || "",
             timestamp: serverTimestamp(),
         });
 
