@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 import linkedinLogo from "./assets/linkedinLogo.png";
@@ -13,19 +13,32 @@ import { logout } from "./features/userSlice";
 import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
 
-function Header() {
+function Header({ onSearch }) {
+    const [searchQuery, setSearchQuery] = useState("");
     const dispatch = useDispatch();
     const logoutOfApp = () => {
         dispatch(logout());
         signOut(auth);
     };
+
+    const handleSearch = (e) => {
+        const query = e.target.value;
+        setSearchQuery(query);
+        onSearch(query);
+    };
+
     return (
         <div className="header">
             <div className="header__left">
                 <img src={linkedinLogo} alt="linkedinLogo" />
                 <div className="header__search">
                     <SearchIcon />
-                    <input type="text" placeholder="Rechercher" />
+                    <input
+                        type="text"
+                        placeholder="Rechercher"
+                        value={searchQuery}
+                        onChange={handleSearch}
+                    />
                 </div>
             </div>
             <div className="header__right">

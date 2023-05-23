@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -13,6 +13,7 @@ import Widgets from "./Widgets";
 function App() {
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
+    const [searchQuery, setSearchQuery] = useState("");
 
     // Maintenir l'utilisateur actuel connecté si refresh
     useEffect(() => {
@@ -34,16 +35,20 @@ function App() {
         });
     }, []);
 
+    function handleSearch(query) {
+        setSearchQuery(query);
+    }
+
     return (
         <div className="app">
-            <Header />
+            <Header onSearch={handleSearch} />
 
             {!user ? (
                 <Login />
             ) : (
                 <div className="app__body">
                     <Sidebar />
-                    <Feed />
+                    <Feed searchQuery={searchQuery} />
                     <Widgets />
                 </div>
             )}

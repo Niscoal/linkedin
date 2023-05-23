@@ -19,7 +19,7 @@ import {
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/userSlice";
 
-function Feed() {
+function Feed({ searchQuery }) {
     const user = useSelector(selectUser);
     const [input, setInput] = useState("");
     const [posts, setPosts] = useState([]);
@@ -37,6 +37,10 @@ function Feed() {
                 )
         );
     }, []);
+
+    const filteredPosts = posts.filter((post) =>
+        post.data.message.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     const sendPost = (e) => {
         e.preventDefault();
@@ -93,7 +97,7 @@ function Feed() {
             </div>
 
             {/* Posts */}
-            {posts.map(
+            {filteredPosts.map(
                 ({ id, data: { name, description, message, photoUrl } }) => (
                     <Post
                         key={id}
