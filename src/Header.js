@@ -8,6 +8,7 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import SmsIcon from "@mui/icons-material/Sms";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useDispatch } from "react-redux";
 import { logout } from "./features/userSlice";
 import { auth } from "./firebase";
@@ -21,7 +22,7 @@ function Header({ onSearch }) {
         signOut(auth);
     };
 
-    const handleSearch = (e) => {
+    const sendQueryFieldToParent = (e) => {
         const query = e.target.value;
         setSearchQuery(query);
         onSearch(query);
@@ -37,7 +38,7 @@ function Header({ onSearch }) {
                         type="text"
                         placeholder="Rechercher"
                         value={searchQuery}
-                        onChange={handleSearch}
+                        onChange={sendQueryFieldToParent}
                     />
                 </div>
             </div>
@@ -53,8 +54,9 @@ function Header({ onSearch }) {
                 <HeaderOption Icon={NotificationsIcon} title="Notifications" />
                 <HeaderOption
                     avatar={true}
-                    title="Vous"
+                    title={"Vous"}
                     onClick={logoutOfApp}
+                    iconOnTitle={<ArrowDropDownIcon />}
                 />
             </div>
         </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import "./Sidebar.css";
 import { Avatar } from "@mui/material";
-import banner from "./assets/banner.jpg";
+import banner from "./assets/banner.avif";
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/userSlice";
 

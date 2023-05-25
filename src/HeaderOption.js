@@ -4,7 +4,7 @@ import { Avatar } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/userSlice";
 
-function HeaderOption({ avatar, Icon, title, onClick }) {
+function HeaderOption({ iconOnTitle, avatar, Icon, title, onClick }) {
     const user = useSelector(selectUser);
 
     return (
@@ -15,7 +15,10 @@ function HeaderOption({ avatar, Icon, title, onClick }) {
                     {user?.displayName[0]}
                 </Avatar>
             )}
-            <h3 className="headerOption__title">{title}</h3>
+            <h3 className="headerOption__title">
+                {title}
+                {iconOnTitle}
+            </h3>
         </div>
     );
 }

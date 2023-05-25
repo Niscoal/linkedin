@@ -9,8 +9,15 @@
 
 
 .headerOption__title {
+    display: flex;
+    align-items: flex-start;
     font-size: 12px;
     font-weight: 400;
+}
+
+.headerOption__title .MuiSvgIcon-root {
+    margin-left: -3px;
+    margin-top: -3px;
 }
 
 .headerOption__icon {
