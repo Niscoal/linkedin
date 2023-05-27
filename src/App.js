@@ -13,6 +13,8 @@ import Widgets from "./Widgets";
 function App() {
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
+
+    // Met à jour la donnée quand elle est reçue du composant enfant (Header.js)
     const [searchQuery, setSearchQuery] = useState("");
 
     // Maintenir l'utilisateur actuel connecté si refresh

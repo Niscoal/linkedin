@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "./features/userSlice";
 import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
+import DropDownMenu from "./DropDownMenu";
 
 function Header({ onSearch }) {
     const [searchQuery, setSearchQuery] = useState("");
@@ -26,6 +27,11 @@ function Header({ onSearch }) {
         const query = e.target.value;
         setSearchQuery(query);
         onSearch(query);
+    };
+
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
     };
 
     return (
@@ -55,9 +61,11 @@ function Header({ onSearch }) {
                 <HeaderOption
                     avatar={true}
                     title={"Vous"}
-                    onClick={logoutOfApp}
+                    // onClick={logoutOfApp}
+                    onClick={toggleMenu}
                     iconOnTitle={<ArrowDropDownIcon />}
                 />
+                {isOpen && <DropDownMenu />}
             </div>
         </div>
     );
