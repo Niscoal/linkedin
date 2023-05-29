@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 import linkedinLogo from "./assets/linkedinLogo.png";
@@ -34,6 +34,22 @@ function Header({ onSearch }) {
         setIsOpen(!isOpen);
     };
 
+    const dropDownRef = useRef(null);
+    useEffect(() => {
+        const handleCickOutside = (e) => {
+            if (
+                dropDownRef.current &&
+                !dropDownRef.current.contains(e.target)
+            ) {
+                setIsOpen(false);
+            }
+        };
+        document.addEventListener("click", handleCickOutside);
+        return () => {
+            document.removeEventListener("click", handleCickOutside);
+        };
+    }, []);
+
     return (
         <div className="header">
             <div className="header__left">
@@ -58,13 +74,15 @@ function Header({ onSearch }) {
                 />
                 <HeaderOption Icon={SmsIcon} title="Messagerie" />
                 <HeaderOption Icon={NotificationsIcon} title="Notifications" />
-                <HeaderOption
-                    avatar={true}
-                    title={"Vous"}
-                    // onClick={logoutOfApp}
-                    onClick={toggleMenu}
-                    iconOnTitle={<ArrowDropDownIcon />}
-                />
+                <div ref={dropDownRef}>
+                    <HeaderOption
+                        avatar={true}
+                        title={"Vous"}
+                        // onClick={logoutOfApp}
+                        onClick={toggleMenu}
+                        iconOnTitle={<ArrowDropDownIcon />}
+                    />
+                </div>
                 {isOpen && <DropDownMenu />}
             </div>
         </div>
