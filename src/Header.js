@@ -82,8 +82,8 @@ function Header({ onSearch }) {
                         onClick={toggleMenu}
                         iconOnTitle={<ArrowDropDownIcon />}
                     />
+                    {isOpen && <DropDownMenu /*ref={dropDownRef}*/ />}
                 </div>
-                {isOpen && <DropDownMenu />}
             </div>
         </div>
     );
