@@ -74,7 +74,7 @@ function Header({ onSearch }) {
                 />
                 <HeaderOption Icon={SmsIcon} title="Messagerie" />
                 <HeaderOption Icon={NotificationsIcon} title="Notifications" />
-                <div ref={dropDownRef}>
+                <div className="header__rightRef" ref={dropDownRef}>
                     <HeaderOption
                         avatar={true}
                         title={"Vous"}
@@ -82,7 +82,7 @@ function Header({ onSearch }) {
                         onClick={toggleMenu}
                         iconOnTitle={<ArrowDropDownIcon />}
                     />
-                    {isOpen && <DropDownMenu /*ref={dropDownRef}*/ />}
+                    {isOpen && <DropDownMenu />}
                 </div>
             </div>
         </div>
