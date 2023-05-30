@@ -16,13 +16,17 @@ const DropDownMenu = (props, ref) => {
                 >
                     {user.displayName[0]}
                 </Avatar>
-                <p>{user.displayName}</p>
-                <p>{user.email}</p>
+                <div className="dropDownMenu__header--userInfos">
+                    <h1>{user.displayName}</h1>
+                    <p>{user.email}</p>
+                </div>
             </div>
+            <div className="dropDownMenu__border"></div>
             <div className="dropDownMenu__content--1">
                 <h2>Compte</h2>
                 <p>Préférences</p>
             </div>
+            <div className="dropDownMenu__border"></div>
             <div className="dropDownMenu__content--2">
                 <p>Déconnexion</p>
             </div>

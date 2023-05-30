@@ -2,11 +2,12 @@
     position: sticky;
     top: 0;
     display: flex;
+    align-items: center;
     background-color: white;
     justify-content: space-evenly;
     border-bottom: 0.1px solid rgba(0, 0, 0, 0.08);
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 6px;
+    padding-bottom: 0px;
     width: 100%;
     z-index: 999;
 }
@@ -17,7 +18,7 @@
 
 .header__left > img {
     object-fit: contain;
-    height: 40px;
+    height: 33px;
     background-color: #0B66C3;
     border-radius: 3px;
     margin-right: 10px;
@@ -25,10 +26,11 @@
 
 .header__search {
     padding: 10px;
+    margin-bottom: 6px;
     display: flex;
     align-items: center;
     border-radius: 5px;
-    height: 22px;
+    height: 13px;
     color: #676766;
     background-color:#eef3f8 ;
 }
