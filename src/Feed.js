@@ -66,6 +66,7 @@ function Feed({ searchQuery }) {
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             type="text"
+                            placeholder="Commencer un post"
                         />
                         <button onClick={sendPost} type="submit">
                             Envoyer
