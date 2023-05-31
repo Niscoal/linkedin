@@ -9,19 +9,12 @@ import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import SmsIcon from "@mui/icons-material/Sms";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { useDispatch } from "react-redux";
-import { logout } from "./features/userSlice";
-import { auth } from "./firebase";
-import { signOut } from "firebase/auth";
 import DropDownMenu from "./DropDownMenu";
+import { useSelector } from "react-redux";
+import { selectUser } from "./features/userSlice";
 
 function Header({ onSearch }) {
     const [searchQuery, setSearchQuery] = useState("");
-    const dispatch = useDispatch();
-    const logoutOfApp = () => {
-        dispatch(logout());
-        signOut(auth);
-    };
 
     const sendQueryFieldToParent = (e) => {
         const query = e.target.value;
@@ -50,6 +43,8 @@ function Header({ onSearch }) {
         };
     }, []);
 
+    const user = useSelector(selectUser);
+
     return (
         <div className="header">
             <div className="header__left">
@@ -58,7 +53,7 @@ function Header({ onSearch }) {
                     <SearchIcon />
                     <input
                         type="text"
-                        placeholder="Rechercher"
+                        placeholder="Recherche"
                         value={searchQuery}
                         onChange={sendQueryFieldToParent}
                     />
@@ -78,11 +73,10 @@ function Header({ onSearch }) {
                     <HeaderOption
                         avatar={true}
                         title={"Vous"}
-                        // onClick={logoutOfApp}
                         onClick={toggleMenu}
                         iconOnTitle={<ArrowDropDownIcon />}
                     />
-                    {isOpen && <DropDownMenu />}
+                    {isOpen && user && <DropDownMenu />}
                 </div>
             </div>
         </div>

@@ -3,9 +3,19 @@ import "./DropDownMenu.css";
 import { Avatar } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/userSlice";
+import { useDispatch } from "react-redux";
+import { logout } from "./features/userSlice";
+import { signOut } from "firebase/auth";
+import { auth } from "./firebase";
 
-const DropDownMenu = (props, ref) => {
+const DropDownMenu = () => {
     const user = useSelector(selectUser);
+
+    const dispatch = useDispatch();
+    const logoutOfApp = () => {
+        dispatch(logout());
+        signOut(auth);
+    };
 
     return (
         <div className="dropDownMenu">
@@ -28,7 +38,7 @@ const DropDownMenu = (props, ref) => {
             </div>
             <div className="dropDownMenu__border"></div>
             <div className="dropDownMenu__content--2">
-                <p>Déconnexion</p>
+                <p onClick={logoutOfApp}>Déconnexion</p>
             </div>
         </div>
     );
